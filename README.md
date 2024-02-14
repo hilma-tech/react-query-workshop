@@ -1,6 +1,6 @@
-# devops-todos
+# react-query-todos
 
-A minimal project for learning about end-to-end testing.
+A minimal project for learning about react query
 
 ## Installation
 
