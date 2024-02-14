@@ -1,15 +1,22 @@
 import axios from "axios";
-import { useRef } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
+import { Todo } from "../common/types/todo.interface";
 
-export function AddTodo() {
+interface AddTodoProps {
+  setTodos: Dispatch<SetStateAction<Todo[]>>;
+}
+
+export function AddTodo({ setTodos }: AddTodoProps) {
   const bodyRef = useRef<HTMLInputElement | null>(null);
 
   const handleAddTodo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("/api/todos", bodyRef.current!.value);
+      const newTodo = bodyRef.current!.value;
+      const { data: newId } = await axios.post<number>("/api/todos", newTodo);
+
+      setTodos((prev) => [...prev, { body: newTodo, id: newId, completed: false, deleted: null }]);
       bodyRef.current!.value = "";
-      // TODO add the new one to the list
     } catch (err) {
       alert("אירעה שגיאה...");
     }
