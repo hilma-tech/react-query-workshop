@@ -3,9 +3,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { produce } from "immer";
 import axios from "axios";
 import { Todo } from "../common/types/todo.interface";
+import { Dispatch, SetStateAction } from "react";
 
 export interface TodoCardProps {
   todo: Todo;
+  setTodos: Dispatch<SetStateAction<Todo[]>>;
   index: number;
 }
 
@@ -30,7 +32,7 @@ export function TodoCard(props: TodoCardProps) {
         ["todos"],
         produce((draft: Todo[]) => {
           draft[props.index].completed = isChecked;
-        }),
+        })
       );
 
       return { previousTodos };
@@ -59,7 +61,7 @@ export function TodoCard(props: TodoCardProps) {
         ["todos"],
         produce((draft: Todo[]) => {
           draft.splice(props.index);
-        }),
+        })
       );
 
       return { previousTodos };
@@ -86,9 +88,7 @@ export function TodoCard(props: TodoCardProps) {
         disabled={disabled}
       />
 
-      <p
-        className={clsx("todo-text", props.todo.completed && "completed")}
-      >
+      <p className={clsx("todo-text", props.todo.completed && "completed")}>
         {props.todo.body}
       </p>
 
