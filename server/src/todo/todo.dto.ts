@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
 export class TodoDTO {
-  @IsString() 
+  @IsString()
   @IsNotEmpty()
-  body: string;
+  newTodo: string;
 }

@@ -25,13 +25,13 @@ export class TodoController {
   @Get("health")
   getHealth() {
     return {
-      ok: true
-    }
+      ok: true,
+    };
   }
 
   @Post()
   post(@Body() body: TodoDTO) {
-    return this.todoService.createTodo(body.body);
+    return this.todoService.createTodo(body.newTodo);
   }
 
   @Put(":id")
