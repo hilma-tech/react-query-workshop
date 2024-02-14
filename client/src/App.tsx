@@ -1,5 +1,4 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AddTodo } from "./components/AddTodo";
 import { Todos } from "./components/Todos";
 
 const client = new QueryClient();
@@ -11,7 +10,6 @@ function App() {
 
       <Todos />
 
-      <AddTodo />
     </QueryClientProvider>
   );
 }
