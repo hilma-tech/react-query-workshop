@@ -4,24 +4,18 @@ A minimal project for learning about react query
 
 ## Installation
 
-To install dependencies, run the following command in `server` and in `client`:
+To install dependencies, run the following command in the root of the project:
 
 ```bash
-npm install
+pnpm install
 ```
 
 Make sure you have MySQL installed and running on your computer, with a database called `testing_todos`.
 
 ## Running
 
-To run the server, use:
+To run the apps (server & client), use:
 
 ```bash
-npm run start:dev
-```
-
-To run the client, use:
-
-```bash
-npm run dev
+pnpm turbo dev
 ```
