@@ -1,29 +1,31 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
 import { TodoCard } from "./TodoCard";
 import { Todo } from "../common/types/todo.interface";
-import { useEffect, useState } from "react";
-import { AddTodo } from "./AddTodo";
 
 export function Todos() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const {
+    data: todos,
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ["todos"],
+    async queryFn() {
+      const { data } = await axios.get<Todo[]>("/api/todos");
+      return data;
+    },
+  });
 
-  useEffect(() => {
-    fetchTodo();
-  }, []);
+  if (isPending) return <p className="loading">Loading...</p>;
 
-  async function fetchTodo() {
-    const { data } = await axios.get<Todo[]>("/api/todos");
-    setTodos(data);
-  }
+  if (isError) return <p className="error">An error occurred. Please refresh and try again.</p>;
 
   return (
-    <>
     <div className="todo-container">
-      {todos.map((todo, index) => (
-        <TodoCard todo={todo} setTodos={setTodos} index={index} key={todo.id} />
+      {todos?.map((todo, index) => (
+        <TodoCard todo={todo} index={index} key={todo.id} />
       ))}
     </div>
-    <AddTodo setTodos={setTodos} />
-    </>
   );
 }
